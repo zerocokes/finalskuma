@@ -1,11 +1,16 @@
 <?php 
-if (isset($_GET["quiz_type"]) == "multiple_choice") {
-    header("Location: multiple_choice.php");
-    exit;
-}elseif (isset($_GET["quiz_type"]) == "enumeration") {
-    header("Location: enumeration.php");
-    exit;
+if(isset($_GET["quiz_type"])){
+    if($_GET["quiz_type"] == "multiple_choice"){
+            header("Location: multiple_choice.php");
+    }else if($_GET["quiz_type"] == "enumeration") {
+            header("Location: enumeration.php");
+    }else if($_GET["quiz_type"] == "identification"){
+            header("Location: identification.php");
+    }else if($_GET["quiz_type"] == "matching_type") {
+            header("Location: matching_type.php");
+    }
 }
+
 
 ?>
 
