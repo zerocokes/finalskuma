@@ -16,7 +16,7 @@ if (isset($_POST['check'])) {
     <title>Activities</title>
 </head>
 <body>
-    <p>Multiple Choice Questions</p>
+    <p>Enumeration</p>
     <form type="POST">
         <?php 
 
@@ -27,14 +27,14 @@ if (isset($_POST['check'])) {
             echo "<p>" . $question . "</p>";
             $question_id= $res_row['question_id'];
             $ans = mysqli_query($conn, "SELECT answer FROM  answers WHERE question_id = $question_id");
-            
+
 
             while ($ans_row = $ans->fetch_assoc()) {
                 $answer = $ans_row['answer'];
-                echo "<input type='radio' name='answer" . $question_id . "'>" . $answer . "</input>";
+                echo "<input type='checkbox' name='answer" . $question_id . "'>" . $answer . "</input>";
                 echo "<br>";
             }
-            
+
         } 
         ?>
         <button type="submit" name="check"> Check </button>

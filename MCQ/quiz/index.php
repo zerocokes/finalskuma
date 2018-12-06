@@ -4,7 +4,7 @@ session_start();
 require_once 'dbconnect.php';
 
 if ( isset($_SESSION['user'])!="" ) {
-	header("Location: quiz/index.html");
+	header("Location: quiz/index.php");
 	exit;
 }
 
