@@ -7,17 +7,15 @@
     if (isset($_POST['check'])) {
         $score = 0;
         foreach ($_POST as $key => $answer) {
-            //if ($key != 'check') {
+            if ($key != 'check') {
                 $id = explode(',', $key);
                 $q_id = $id[1];
-                echo $q_id;
-                $res=mysqli_query($conn, "SELECT count(answer_id) FROM answers WHERE question_id = $q_id and answer like $answer)");
-                $count = $res->fetch_assoc();
+                $res=mysqli_query($conn, "SELECT * FROM answers WHERE question_id = $q_id and answer like $answer)");
 
-                if ($count > 0) {
+                if (($res->num_rows) > 0) {
                     $score++;
                 }
-            //}
+            }
         }
         echo $score;
     }
@@ -31,7 +29,7 @@
 </head>
 <body>
     <p>Enumeration</p>
-    <form type="POST">
+    <form method="POST">
         <?php 
 
         $res=mysqli_query($conn, "SELECT * FROM questions where type_of_question like 'enumeration'");
@@ -45,7 +43,7 @@
             $number_of_answers = $res_row['no_of_answers'];
 
             for ($i=0; $i < $number_of_answers;$i++) { 
-                echo "<input type='input' name='enumerationAnswer," . $question_id . "' ></br>";
+                echo "<input type='input' name='enumerationAnswer," . $question_id . "," . $i . "' ></br>";
             }
 
             $count++;
