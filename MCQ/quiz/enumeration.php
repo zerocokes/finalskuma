@@ -6,11 +6,12 @@
 
     if (isset($_POST['check'])) {
         $score = 0;
-        foreach ($_POST as $key => $answer) {
+        foreach ($_POST as $key => $a) {
             if ($key != 'check') {
                 $id = explode(',', $key);
                 $q_id = $id[1];
-                $res=mysqli_query($conn, "SELECT * FROM answers WHERE question_id = $q_id and answer like $answer)");
+                $answer = trim($a);
+                $res=mysqli_query($conn, "SELECT * FROM answers WHERE question_id = $q_id and answer like '$answer'");
 
                 if (($res->num_rows) > 0) {
                     $score++;

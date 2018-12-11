@@ -56,30 +56,42 @@ if( isset($_POST['btn-login']) ) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Registration</title>
-</head>
-<body>
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Registration</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/grayscale.min.css" rel="stylesheet">
+
+  </head>
+<body id="page-top">
 
 	<div class="container">
-
 		<div id="login-form">
 			<form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
 				
 				<div class="col-md-12">
-					
 					<div class="form-group">
 						<h2 class="">Sign In.</h2>
 					</div>
-					
 					<div class="form-group">
 						<hr />
-					</div>
-					
+					</div>			
 					<?php
 					if ( isset($errMSG) ) {
-						
 						?>
 						<div class="form-group">
 							<div class="alert alert-danger">
@@ -87,9 +99,8 @@ if( isset($_POST['btn-login']) ) {
 							</div>
 						</div>
 						<?php
-					}
+						}
 					?>
-					
 					<div class="form-group">
 						<div class="input-group">
 							<span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
@@ -129,6 +140,22 @@ if( isset($_POST['btn-login']) ) {
 
 	</div>
 
+    <!-- Footer -->
+    <footer class="bg-black small text-center text-white-50">
+      <div class="container">
+        Copyright &copy; Your Website 2018
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/grayscale.min.js"></script>
 </body>
 </html>
 <?php ob_end_flush(); ?>
