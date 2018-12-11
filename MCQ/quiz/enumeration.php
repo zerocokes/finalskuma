@@ -1,13 +1,27 @@
 <?php 
-ob_start();
-session_start();
-include '../dbconnect.php';
+    ob_start();
+    session_start();
+    include '../dbconnect.php';
 
-if (isset($_POST['check'])) {
-    foreach ($_POST['check'] as $answer) {
-            # code...
+
+    if (isset($_POST['check'])) {
+        $score = 0;
+        foreach ($_POST as $key => $answer) {
+            //if ($key != 'check') {
+                $id = explode(',', $key);
+                $q_id = $id[1];
+                echo $q_id;
+                $res=mysqli_query($conn, "SELECT count(answer_id) FROM answers WHERE question_id = $q_id and answer like $answer)");
+                $count = $res->fetch_assoc();
+
+                if ($count > 0) {
+                    $score++;
+                }
+            //}
+        }
+        echo $score;
     }
-}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,26 +36,23 @@ if (isset($_POST['check'])) {
 
         $res=mysqli_query($conn, "SELECT * FROM questions where type_of_question like 'enumeration'");
 
+        $count = 1;
+
         while ($res_row = $res->fetch_assoc()) {
             $question = $res_row['question'];
-            echo "<p>" . $question . "</p>";
+            echo "<p>" . $count . ". " . $question . "</p>";
             $question_id= $res_row['question_id'];
             $number_of_answers = $res_row['no_of_answers'];
-            //$ans = mysqli_query($conn, "SELECT answer FROM  answers WHERE question_id = $question_id");
-     
-            // while ($ans_row = $ans->fetch_assoc()) {
-            //     $answer = $ans_row['answer'];
-            //     echo "<input type='checkbox' name='answer" . $question_id . "'>" . $answer . "</input>";
-            //     echo "<br>";
-            // }
 
             for ($i=0; $i < $number_of_answers;$i++) { 
-                echo "<input type='input'></br>";
+                echo "<input type='input' name='enumerationAnswer," . $question_id . "' ></br>";
             }
+
+            $count++;
 
         } 
         ?>
-        <button type="submit" name="check"> Check </button>
+        <button type="submit" name="check" id="check"> Check </button>
     </form>
 </body>
 </html>
