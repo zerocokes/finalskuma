@@ -7,11 +7,10 @@ if (isset($_POST['check'])) {
     $score = 0;
     foreach ($_POST as $key => $value) {
         if ($key != 'check') {
-            $ids = explode(',', $value);
-            $q_id = $ids[0];
-            $a_id = $ids[1];
+            $ids = explode(',', $key);
+            $q_id = $ids[1];
 
-            $res=mysqli_query($conn, "SELECT * FROM questions WHERE question_id = $q_id and answer_id = $a_id");
+            $res=mysqli_query($conn, "SELECT * FROM answers WHERE question_id = $q_id and letter = '$value'");
 
             if (($res->num_rows) > 0) {
               $score++;  
@@ -35,27 +34,31 @@ if (isset($_POST['check'])) {
         <p>Multiple Choice Questions</p>
         <?php 
 
-            $res=mysqli_query($conn, "SELECT * FROM questions WHERE type_of_question Like 'multiple_choice'");
-
+            $res=mysqli_query($conn, "SELECT * FROM questions WHERE type_of_question Like 'matching_type'");
+            $count = 1;
             while ($res_row = $res->fetch_assoc()) {
                 $question = $res_row['question'];
+                echo "<p>" . $count . ". " . $question . "</p>";
                 $question_id= $res_row['question_id'];
-                echo "<p>" . $question . "</p>";
-                echo "<br>";
-                $ans = mysqli_query($conn, "SELECT * FROM  answers WHERE question_id = $question_id");
-
-
-                while ($ans_row = $ans->fetch_assoc()) {
-                    $answer = $ans_row['answer'];
-                    $answer_id = $ans_row['answer_id'];
-                    echo "<input type='radio' name='answer," . $question_id . "' value='" . $question_id . ',' . $answer_id . "'>" . $answer . "</input>";
-                    echo "<br>";
-                }
-
+                echo "<input type='input' name='matchingTypeAnswer," . $question_id . "' ></br>";
+                $count++;   
             } 
         ?>
         <button type="submit" name="check" id="check"> Check </button>
     </form>
+
+    <div>
+        <?php 
+
+            $result = mysqli_query($conn, "SELECT letter, answer FROM questions JOIN answers on questions.question_id = answers.question_id WHERE questions.type_of_question like 'matching_type' order by letter ASC");
+
+            while ($result_row = $result->fetch_assoc()) {
+                $answer_letter = $result_row['letter'];
+                $answer_name = $result_row['answer'];
+                echo "<p>" . $answer_letter . '. ' . $answer_name . "</p>";
+            }
+         ?>
+    </div>
 </body>
 </html>
 
